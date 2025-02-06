@@ -1,10 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
-import { BarChart, LineChart, Shield, Zap, Binary, Brain, Clock, Cloud, ArrowRight } from 'lucide-react';
+import { BarChart, LineChart, Shield, Zap, Brain, Clock, Cloud, ArrowRight, DollarSign, TrendingUp } from 'lucide-react';
+import { Link } from "react-router-dom";
 
 export default function Home() {
   const [hoveredFeature, setHoveredFeature] = useState(null);
   const [scrollY, setScrollY] = useState(0);
+  
+
+
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
@@ -56,25 +60,67 @@ export default function Home() {
       gradient: "from-fuchsia-500/20 via-violet-500/20 to-purple-500/20"
     }
   ];
+  const generateSalesElements = () => {
+    return Array.from({ length: 20 }, (_, index) => ({
+      type: index % 3 === 0 ? 'dollar' : index % 3 === 1 ? 'graph' : 'trend',
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      size: Math.random() * 2 + 0.5,
+      delay: Math.random() * 5
+    }));
+  };
+
+  const salesElements = generateSalesElements();
 
   return (
     <div className="min-h-screen w-full bg-black relative overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-purple-900/30 via-black to-black"></div>
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIzMDAiIGZpbHRlcj0idXJsKCNhKSIgb3BhY2l0eT0iLjEiLz48L3N2Zz4=')] opacity-30"></div>
+      <div className="absolute inset-0 bg-[url('https://example.com/your-background-image.jpg')] opacity-30 bg-cover"></div>
       
       {/* Animated Accent Lights */}
       <div className="absolute top-0 right-0 w-[40rem] h-[40rem] bg-gradient-to-br from-purple-400/20 rounded-full blur-3xl animate-pulse delay-1000 "></div>
       
-      
-      {/* Enhanced Parallax Stars */}
+      {/* Enhanced Parallax Sales Elements */}
       <div 
-        className="absolute inset-0 opacity-50"
+        className="absolute inset-0 opacity-30"
         style={{
           transform: `translateY(${scrollY * 0.2}px)`,
-          backgroundImage: `radial-gradient(2px 2px at ${Math.random() * 100}% ${Math.random() * 100}%, white, transparent)`
         }}
-      ></div>
+      >
+        {salesElements.map((element, index) => (
+          <div 
+            key={index} 
+            className="absolute opacity-20 hover:opacity-50 transition-all duration-300"
+            style={{
+              left: `${element.x}%`,
+              top: `${element.y}%`,
+              animationDelay: `${element.delay}s`,
+              animationDuration: `${Math.random() * 5 + 3}s`,
+              animationIterationCount: 'infinite',
+              animationTimingFunction: 'ease-in-out',
+              animationName: 'floatAndScale',
+              transform: `scale(${element.size})`
+            }}
+          >
+            {element.type === 'dollar' ? (
+              <DollarSign className="text-purple-500/30 w-6 h-6 animate-bounce" />
+            ) : element.type === 'graph' ? (
+              <BarChart className="text-fuchsia-500/30 w-8 h-8 animate-pulse" />
+            ) : (
+              <TrendingUp className="text-violet-500/30 w-7 h-7 animate-spin" />
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* Global CSS for floating animation */}
+      <style jsx global>{`
+        @keyframes floatAndScale {
+          0%, 100% { transform: translateY(0) scale(1); }
+          50% { transform: translateY(-10px) scale(1.1); }
+        }
+      `}</style>
 
       <div className="relative">
         {/* Hero Section */}
@@ -98,12 +144,12 @@ export default function Home() {
 
             {/* CTA Buttons */}
             <div className="flex flex-wrap gap-6 justify-center mt-12">
-              <Button className="bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white text-lg rounded-full px-12 py-7 hover:opacity-90 transition-all duration-300 shadow-lg shadow-purple-500/20 transform hover:scale-105 hover:-translate-y-1">
-                Get Started Free
+              <Link to={"/RegisterDashboard"}>
+              <Button  className="bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white text-lg rounded-full px-12 py-7 hover:opacity-90 transition-all duration-300 shadow-lg shadow-purple-500/20 transform hover:scale-105 hover:-translate-y-1">
+                Get Started 
               </Button>
-              <Button className="bg-white/10 hover:bg-white/15 text-white text-lg rounded-full px-12 py-7 backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all duration-300 shadow-lg hover:shadow-purple-500/20 transform hover:scale-105 hover:-translate-y-1">
-                Watch Demo
-              </Button>
+              </Link>
+              
             </div>
           </div>
         </section>
@@ -111,7 +157,7 @@ export default function Home() {
         {/* Features Section */}
         <section className="px-8 py-32 max-w-7xl mx-auto">
           <div className="text-center mb-20 space-y-4">
-            <h2 className="text-4xl font-bold bg-gradient-to-r from-white via-purple-400 to-fuchsia-400 bg-clip-text text-transparent inline-block">
+            <h2 className="text-5xl font-bold bg-gradient-to-r from-white via-purple-400 to-fuchsia-400 bg-clip-text text-transparent inline-block">
               Platform Features
             </h2>
             <p className="text-xl text-zinc-400 max-w-2xl mx-auto">

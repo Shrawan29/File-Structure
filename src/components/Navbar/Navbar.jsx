@@ -30,7 +30,7 @@ export default function Header() {
     { path: "/", label: "Home", icon: Home },
     { path: "/SalesTrends", label: "Sales Trends", icon: TrendingUp },
     { path: "/InventoryForecast", label: "Inventory Forecast", icon: Package },
-    { path: "/market-insights", label: "Market Insights", icon: BarChart2 }
+    { path: "/MarketInsights", label: "Market Insights", icon: BarChart2 }
   ];
 
   return (
@@ -98,7 +98,7 @@ export default function Header() {
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-fuchsia-600/20 rounded-xl blur-xl" />
                 <div className="relative bg-black/60 backdrop-blur-xl border border-white/10 rounded-xl overflow-hidden">
                   <div className="p-2 space-y-1">
-                    <Link to="/profile" className="flex items-center space-x-2 px-3 py-2 rounded-lg text-gray-300 hover:text-white hover:bg-white/5 transition-colors duration-300">
+                    <Link to="/Profile" className="flex items-center space-x-2 px-3 py-2 rounded-lg text-gray-300 hover:text-white hover:bg-white/5 transition-colors duration-300">
                       <User className="w-4 h-4" />
                       <span>View Profile</span>
                     </Link>
@@ -107,10 +107,12 @@ export default function Header() {
                       <span>Settings</span>
                     </Link>
                     <div className="h-[1px] bg-white/10 my-1" />
+                    <Link to="/logout">
                     <button className="w-full flex items-center space-x-2 px-3 py-2 rounded-lg text-red-400 hover:text-red-300 hover:bg-white/5 transition-colors duration-300">
                       <LogOut className="w-4 h-4" />
                       <span>Sign Out</span>
                     </button>
+                    </Link>
                   </div>
                 </div>
               </div>

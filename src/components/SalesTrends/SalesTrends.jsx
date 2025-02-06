@@ -1,10 +1,12 @@
 import React, { useState, useMemo } from 'react';
+import { Link, Links } from 'react-router-dom';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Legend } from 'recharts';
 import { Card } from "@/components/ui/card";
 import { Calendar, TrendingUp, TrendingDown, Package, Target, ChevronDown, Filter, ArrowRight, Clock, DollarSign, Users, ShoppingCart, BarChart2, Map, Bell } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+
 
 export default function SalesTrends() {
   const [dateRange, setDateRange] = useState('This Month');
@@ -28,7 +30,8 @@ export default function SalesTrends() {
     { name: 'Premium Headphones', sales: 1200, growth: 15, revenue: 48000, category: 'Electronics', stock: 450 },
     { name: 'Wireless Keyboard', sales: 950, growth: 8, revenue: 38000, category: 'Electronics', stock: 320 },
     { name: 'Smart Watch', sales: 850, growth: -5, revenue: 34000, category: 'Electronics', stock: 280 },
-    { name: 'Laptop Stand', sales: 700, growth: 12, revenue: 28000, category: 'Accessories', stock: 560 }
+    { name: 'Laptop Stand', sales: 700, growth: 12, revenue: 28000, category: 'Accessories', stock: 560 },
+    { name: 'Mouse', sales: 200, growth: 12, revenue: 2000, category: 'Accessories', stock: 560 }
   ];
 
   const regionalData = [
@@ -92,10 +95,10 @@ export default function SalesTrends() {
           <p className="text-white font-medium mb-2">{label}</p>
           {payload.map((entry, index) => (
             <p key={index} className="text-sm text-gray-300">
-              {entry.name}: {typeof entry.value === 'number' ? 
-                entry.name.toLowerCase().includes('revenue') || entry.name.toLowerCase().includes('profit') 
-                  ? `$${entry.value.toLocaleString()}` 
-                  : entry.value.toLocaleString() 
+              {entry.name}: {typeof entry.value === 'number' ?
+                entry.name.toLowerCase().includes('revenue') || entry.name.toLowerCase().includes('profit')
+                  ? `$${entry.value.toLocaleString()}`
+                  : entry.value.toLocaleString()
                 : entry.value}
             </p>
           ))}
@@ -109,7 +112,7 @@ export default function SalesTrends() {
     <div className="min-h-screen w-full bg-black relative overflow-hidden p-6 pt-20">
       {/* Background Effects */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-purple-900/30 via-black to-black" />
-      
+
       <div className="relative max-w-7xl mx-auto space-y-6">
         {/* Header Section */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
@@ -119,7 +122,7 @@ export default function SalesTrends() {
             </h1>
             <p className="text-zinc-400 mt-1">Comprehensive view of your business metrics</p>
           </div>
-          
+
           <div className="flex flex-wrap items-center gap-4">
             <Select defaultValue={dateRange} onValueChange={setDateRange}>
               <SelectTrigger className="w-40 bg-black/80 backdrop-blur-sm border-white/10 text-white">
@@ -134,7 +137,7 @@ export default function SalesTrends() {
                 <SelectItem value="This Year">This Year</SelectItem>
               </SelectContent>
             </Select>
-            
+
             <div className="flex gap-2">
               <Select defaultValue={selectedRegion} onValueChange={setSelectedRegion}>
                 <SelectTrigger className="w-32 bg-black/40 border-white/10 text-white">
@@ -161,17 +164,15 @@ export default function SalesTrends() {
               <div className="relative backdrop-blur-xl bg-black/40 rounded-xl border border-white/10 p-6 transition-all duration-500 group-hover:bg-black/50">
                 <div className="flex justify-between items-start mb-4">
                   <div className="text-zinc-400 text-sm">{metric.title}</div>
-                  <div className={`p-2 rounded-lg  ${
-                    metric.trend === 'up' ? 'bg-green-500' : 'bg-red-500'
-                  }`}>
+                  <div className={`p-2 rounded-lg  ${metric.trend === 'up' ? 'bg-green-500' : 'bg-red-500'
+                    }`}>
                     {metric.icon}
                   </div>
                 </div>
                 <div className="text-2xl font-bold text-white mb-2">{metric.value}</div>
                 <div className="flex items-center justify-between">
-                  <span className={`text-sm ${
-                    metric.trend === 'up' ? 'text-green-400' : 'text-red-400'
-                  }`}>
+                  <span className={`text-sm ${metric.trend === 'up' ? 'text-green-400' : 'text-red-400'
+                    }`}>
                     {metric.change}
                   </span>
                   <span className="text-xs text-zinc-500">{metric.metric}</span>
@@ -186,7 +187,7 @@ export default function SalesTrends() {
           {/* Main Chart */}
           <Card className="relative group lg:col-span-2">
             <div className="absolute inset-0 bg-gradient-to-r from-purple-600/50 to-fuchsia-600/50 rounded-xl blur-sm opacity-20 group-hover:opacity-30 transition duration-500" />
-            <div className="relative backdrop-blur-xl bg-black/40 rounded-xl border border-white/10 p-6 transition-all duration-500 group-hover:bg-black/50">
+            <div className="relative backdrop-blur-xl bg-black/40  border p-6 transition-all duration-500 ">
               <h3 className="text-lg font-medium text-white mb-4">Sales Trends</h3>
               <div className="h-96 w-full">
                 <ResponsiveContainer width="100%" height="100%">
@@ -196,10 +197,10 @@ export default function SalesTrends() {
                     <YAxis stroke="#666" />
                     <Tooltip content={<CustomTooltip />} />
                     <Legend />
-                    <Line 
-                      type="monotone" 
+                    <Line
+                      type="monotone"
                       dataKey={selectedMetric}
-                      stroke="#9333EA" 
+                      stroke="#9333EA"
                       strokeWidth={2}
                       dot={{ fill: '#9333EA' }}
                       activeDot={{ r: 6, fill: '#A855F7' }}
@@ -211,13 +212,14 @@ export default function SalesTrends() {
           </Card>
 
           {/* Top Products */}
-          <Card className="relative group">
+          <Card className="relative group" >
             <div className="absolute inset-0 bg-gradient-to-r from-purple-600/50 to-fuchsia-600/50 rounded-xl blur-sm opacity-20 group-hover:opacity-30 transition duration-500" />
             <div className="relative backdrop-blur-xl bg-black/40 rounded-xl border border-white/10 p-6 transition-all duration-500 group-hover:bg-black/50">
               <h3 className="text-lg font-medium text-white mb-4">Top Products</h3>
               <div className="space-y-4">
                 {topProducts.map((product, index) => (
-                  <div key={index} className="flex items-center justify-between p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-colors">
+                  <Link to="/Product" >
+                  <div  key={index} className="flex items-center justify-between p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-colors">
                     <div>
                       <div className="font-medium text-white">{product.name}</div>
                       <div className="text-sm text-zinc-400">{product.category}</div>
@@ -229,6 +231,7 @@ export default function SalesTrends() {
                       </div>
                     </div>
                   </div>
+                  </Link>
                 ))}
               </div>
             </div>
@@ -237,7 +240,7 @@ export default function SalesTrends() {
           {/* Regional Performance */}
           <Card className="relative group lg:col-span-3">
             <div className="absolute inset-0 bg-gradient-to-r from-purple-600/50 to-fuchsia-600/50 rounded-xl blur-sm opacity-20 group-hover:opacity-30 transition duration-500" />
-            <div className="relative backdrop-blur-xl bg-black/40 rounded-xl border border-white/10 p-6 transition-all duration-500 group-hover:bg-black/50">
+            <div className="relative backdrop-blur-xl bg-black/40  border  p-6 transition-all duration-500 group-hover:bg-black/50">
               <h3 className="text-lg font-medium text-white mb-4">Regional Performance</h3>
               <div className="h-72">
                 <ResponsiveContainer className="" width="100%" height="100%">
@@ -246,7 +249,14 @@ export default function SalesTrends() {
                     <XAxis dataKey="name" stroke="#666" />
                     <YAxis stroke="#666" />
                     <Tooltip content={<CustomTooltip />} />
-                    <Bar className='' dataKey="revenue" fill="#9333EA" />
+                    <Bar
+                      dataKey="revenue"
+                      fill="#9333EA"
+                      className="hover:fill-[#A855F7] transition-all duration-300"
+                    />
+
+
+
                   </BarChart>
                 </ResponsiveContainer>
               </div>

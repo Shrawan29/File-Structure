@@ -9,6 +9,11 @@ import Login from "./components/Auth/Login.jsx";
 import Home from "./components/Home/Home.jsx";
 import SalesTrends from "./components/SalesTrends/SalesTrends.jsx";
 import InventoryForecast from "./components/InventoryForecast/InventoryForecast.jsx";
+import MarketInsights from "./components/MarketInsights/MarketInsights.jsx";
+import Profile from "./components/Profile/Profile.jsx";
+import Product from "./components/Product/Product.jsx";
+import RegisterDashboard from "./components/RegisterDashboard/RegisterDashboard.jsx";
+import Logout from "./components/Auth/Logout.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -20,12 +25,31 @@ const router = createBrowserRouter([
       },
       {
         path:"/SalesTrends",
-        element: <SalesTrends />
+        element: <SalesTrends />,
       },
       {
         path:"/InventoryForecast",
         element: <InventoryForecast />
+      },
+      {
+        path:"/MarketInsights",
+        element: <MarketInsights/>
+      },
+      {
+        path:"/Profile",
+        element: <Profile/>
+      },{
+        path:"/Product",
+        element: <Product/>
+      },{
+        path:"/RegisterDashboard",
+        element: <RegisterDashboard/>
+      },{
+        path:"/Logout",
+        element: <Logout/>
       }
+     
+     
     ]
   },
   {
@@ -35,10 +59,6 @@ const router = createBrowserRouter([
   {
     path:"/signup",
     element: <Signup />
-  },
-  {
-    path:"/SalesTrends",
-    element: <SalesTrends />
   }
 ]);
 
