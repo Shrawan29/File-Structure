@@ -7,6 +7,8 @@ import Layout from "./components/Layout/Layout.jsx";// Import the custom Layout 
 import Signup from "./components/Auth/Signup.jsx";
 import Login from "./components/Auth/Login.jsx";
 import Home from "./components/Home/Home.jsx";
+import SalesTrends from "./components/SalesTrends/SalesTrends.jsx";
+import InventoryForecast from "./components/InventoryForecast/InventoryForecast.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -15,6 +17,14 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />
+      },
+      {
+        path:"/SalesTrends",
+        element: <SalesTrends />
+      },
+      {
+        path:"/InventoryForecast",
+        element: <InventoryForecast />
       }
     ]
   },
@@ -25,6 +35,10 @@ const router = createBrowserRouter([
   {
     path:"/signup",
     element: <Signup />
+  },
+  {
+    path:"/SalesTrends",
+    element: <SalesTrends />
   }
 ]);
 

@@ -28,8 +28,8 @@ export default function Header() {
 
   const navLinks = [
     { path: "/", label: "Home", icon: Home },
-    { path: "/sales-trends", label: "Sales Trends", icon: TrendingUp },
-    { path: "/inventory-forecast", label: "Inventory Forecast", icon: Package },
+    { path: "/SalesTrends", label: "Sales Trends", icon: TrendingUp },
+    { path: "/InventoryForecast", label: "Inventory Forecast", icon: Package },
     { path: "/market-insights", label: "Market Insights", icon: BarChart2 }
   ];
 
@@ -51,7 +51,7 @@ export default function Header() {
         <Link to="/" className="relative group flex items-center">
           <div className="absolute -inset-2 bg-gradient-to-r from-purple-600/40 to-fuchsia-600/40 rounded-xl opacity-0 blur-md group-hover:opacity-100 transition-all duration-700" />
           <span className="text-2xl font-semibold bg-gradient-to-r from-purple-400 via-fuchsia-400 to-violet-400 bg-clip-text text-transparent">
-            Analytics
+            VENDITE
           </span>
         </Link>
 
